@@ -38,8 +38,11 @@
     "react-dom": "^18.3.1"
   },
   "type": "module",
-  "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./index.css": "./dist/index.css"
+  },
   "author": "Matteo Di Cristofalo",
   "license": "ISC"
 }
