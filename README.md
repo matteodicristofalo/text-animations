@@ -1,4 +1,4 @@
-# @mdc/text-animations
+# @matteodicristofalo/text-animations
 
 This library provides a set of React components to animate text
 
