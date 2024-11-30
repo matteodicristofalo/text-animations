@@ -1,5 +1,5 @@
 {
-  "name": "text-animations",
+  "name": "@mdc/text-animations",
   "version": "1.0.0",
   "description": "React library to animate text",
   "scripts": {
