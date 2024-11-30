@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["esnext", "dom"],
+    "declaration": true,
     "esModuleInterop": true,
-    "jsx": "react-jsx",
+    "jsx": "react",
+    "lib": ["esnext", "dom"],
+    "outDir": "dist",
     "paths": {
       "@hooks": ["./src/hooks/index"],
       "@utils/*": ["./src/utils/*"]

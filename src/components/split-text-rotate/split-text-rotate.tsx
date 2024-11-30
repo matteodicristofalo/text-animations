@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import React, { useCallback } from "react";
 import { round } from "@utils/numbers";
 import { characters } from "@utils/text";
 import { SplitTextRotateProps } from "./split-text-rotate.types";
