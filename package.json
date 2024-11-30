@@ -43,6 +43,9 @@
     ".": "./dist/index.js",
     "./index.css": "./dist/index.css"
   },
+  "files": [
+    "dist"
+  ],
   "author": "Matteo Di Cristofalo",
   "license": "ISC",
   "homepage": "https://github.com/matteodicristofalo/text-animations",
