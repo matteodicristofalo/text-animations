@@ -44,5 +44,10 @@
     "./index.css": "./dist/index.css"
   },
   "author": "Matteo Di Cristofalo",
-  "license": "ISC"
+  "license": "ISC",
+  "homepage": "https://github.com/matteodicristofalo/text-animations",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:matteodicristofalo/text-animations.git"
+  }
 }
