@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { round } from "@utils/numbers";
 import { characters } from "@utils/text";
 import { SplitTextRotateProps } from "./split-text-rotate.types";
@@ -10,9 +10,17 @@ const DEFAULT_DURATION = 0.25;
 const DEFAULT_STAGGER = 0.025;
 
 export function SplitTextRotate({ text, rotateOptions }: SplitTextRotateProps) {
-  const transitionDuration = rotateOptions?.duration || DEFAULT_DURATION;
-  const transitionStagger = rotateOptions?.stagger || DEFAULT_STAGGER;
-  const splittedText = characters(text);
+  const [hasBeenMounted, setHasBeenMounted] = useState(false);
+
+  const splittedText = useMemo(() => characters(text), [text]);
+
+  const { transitionDuration, transitionStagger } = useMemo(
+    () => ({
+      transitionDuration: rotateOptions?.duration || DEFAULT_DURATION,
+      transitionStagger: rotateOptions?.stagger || DEFAULT_STAGGER,
+    }),
+    [rotateOptions]
+  );
 
   const delays = useCallback(
     (index: number) => {
@@ -25,6 +33,10 @@ export function SplitTextRotate({ text, rotateOptions }: SplitTextRotateProps) {
     [splittedText, transitionStagger]
   );
 
+  useEffect(() => {
+    setHasBeenMounted(true);
+  }, []);
+
   return (
     <span
       className={styles["text"]}
@@ -34,27 +46,31 @@ export function SplitTextRotate({ text, rotateOptions }: SplitTextRotateProps) {
         } as React.CSSProperties
       }
     >
-      {Array.from({ length: 2 }).map((_, i) => (
-        <span key={i} className={styles["container"]}>
-          {splittedText.map((char, i) => {
-            const charDelays = delays(i);
-            return (
-              <span
-                key={i}
-                className={styles["char"]}
-                style={
-                  {
-                    "--var-delay-in": `${charDelays.in}s`,
-                    "--var-delay-out": `${charDelays.out}s`,
-                  } as React.CSSProperties
-                }
-              >
-                {char}
-              </span>
-            );
-          })}
-        </span>
-      ))}
+      {hasBeenMounted ? (
+        Array.from({ length: 2 }).map((_, i) => (
+          <span key={i} className={styles["container"]}>
+            {splittedText.map((char, i) => {
+              const charDelays = delays(i);
+              return (
+                <span
+                  key={i}
+                  className={styles["char"]}
+                  style={
+                    {
+                      "--var-delay-in": `${charDelays.in}s`,
+                      "--var-delay-out": `${charDelays.out}s`,
+                    } as React.CSSProperties
+                  }
+                >
+                  {char}
+                </span>
+              );
+            })}
+          </span>
+        ))
+      ) : (
+        <span>{text}</span>
+      )}
     </span>
   );
 }

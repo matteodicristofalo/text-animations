@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { round } from "@utils/numbers";
 import { characters, sentences, words } from "@utils/text";
 import { useIntersectionObserver } from "@hooks";
@@ -16,22 +16,28 @@ export function SplitTextReveal({
   splitType = "char",
   revealOptions,
 }: SplitTextRevealProps) {
+  const [hasBeenMounted, setHasBeenMounted] = useState(false);
+
   const ref = useRef(null);
   const memoizedOptions = useMemo(() => ({ once: true, threshold: 0.1 }), []);
   const isInView = useIntersectionObserver(ref, memoizedOptions);
   const transitionDuration = revealOptions?.duration || DEFAULT_DURATION;
   const transitionStagger = revealOptions?.stagger || DEFAULT_STAGGER;
 
-  const splitFn = useMemo(() => {
+  const splittedText = useMemo(() => {
     switch (splitType) {
       case "sentence":
-        return sentences;
+        return sentences(text);
       case "word":
-        return words;
+        return words(text);
       case "char":
-        return characters;
+        return characters(text);
     }
-  }, [splitType]);
+  }, [splitType, text]);
+
+  useEffect(() => {
+    setHasBeenMounted(true);
+  }, []);
 
   return (
     <span
@@ -43,19 +49,23 @@ export function SplitTextReveal({
         } as React.CSSProperties
       }
     >
-      {splitFn(text).map((el, i) => (
-        <span key={i} className={styles["container"]}>
-          <span
-            style={
-              {
-                "--var-delay": `${round(transitionStagger * i, 3)}s`,
-              } as React.CSSProperties
-            }
-          >
-            {el}
+      {hasBeenMounted ? (
+        splittedText.map((el, i) => (
+          <span key={i} className={styles["container"]}>
+            <span
+              style={
+                {
+                  "--var-delay": `${round(transitionStagger * i, 3)}s`,
+                } as React.CSSProperties
+              }
+            >
+              {el}
+            </span>
           </span>
-        </span>
-      ))}
+        ))
+      ) : (
+        <span className={styles["is-hidden"]}>{text}</span>
+      )}
     </span>
   );
 }
