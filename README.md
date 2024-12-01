@@ -5,11 +5,11 @@ This library provides a set of React components to animate text
 # Installation
 
 ```bash
-npm install @mdc/text-animations
+npm install @matteodicristofalo/text-animations
 # or
-yarn add @mdc/text-animations
+yarn add @matteodicristofalo/text-animations
 # or
-pnpm add @mdc/text-animations
+pnpm add @matteodicristofalo/text-animations
 ```
 
 # Usage
@@ -22,7 +22,7 @@ The following example is for a Next.js App but you can apply the same concept fo
 // app/layout.tsx
 
 ...
-import "@mdc/text-animations/index.css";
+import "@matteodicristofalo/text-animations/index.css";
 
 
 export default function RootLayout({
@@ -47,7 +47,7 @@ Once imported the CSS you can use the React components.
 ```js
 "use client";
 
-import { SplitTextRevel } from "@mdc/text-animations";
+import { SplitTextRevel } from "@matteodicristofalo/text-animations";
 
 export function MyComponent() {
   return (
@@ -77,7 +77,7 @@ You can also configure the reveal animation by specifying:
 "use client";
 
 import { useMemo } from "react";
-import { SplitTextRevel } from "@mdc/text-animations";
+import { SplitTextRevel } from "@matteodicristofalo/text-animations";
 
 export function MyComponent() {
   const revealOptions = useMemo(
@@ -101,7 +101,7 @@ export function MyComponent() {
 ```js
 "use client";
 
-import { SplitTextRotate } from "@mdc/text-animations";
+import { SplitTextRotate } from "@matteodicristofalo/text-animations";
 
 export function MyComponent() {
   return (
@@ -118,7 +118,7 @@ Also here you can configure the aniimation
 "use client";
 
 import { useMemo } from "react";
-import { SplitTextRotate } from "@mdc/text-animations";
+import { SplitTextRotate } from "@matteodicristofalo/text-animations";
 
 export function MyComponent() {
   const rotateOptions = useMemo(
