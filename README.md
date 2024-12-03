@@ -14,7 +14,7 @@ pnpm add @matteodicristofalo/text-animations
 
 # Usage
 
-The first thing to do in order to use this library is to import it's CSS.
+The first thing to do in order to use this library is to import its CSS.
 
 The following example is for a Next.js App but you can apply the same concept for different frameworks
 
@@ -42,30 +42,30 @@ export default function RootLayout({
 
 Once imported the CSS you can use the React components.
 
-## SplitTextRevel
+## SplitTextReveal
 
 ```js
 "use client";
 
-import { SplitTextRevel } from "@matteodicristofalo/text-animations";
+import { SplitTextReveal } from "@matteodicristofalo/text-animations";
 
 export function MyComponent() {
   return (
     <h1>
-      <SplitTextRevel text="Hello World" />
+      <SplitTextReveal text="Hello World" />
     </h1>
   );
 }
 ```
 
-You can also choose how to split the text between one of this options:
+You can decide how to split the text between one of this options:
 
-- char
+- char (default)
 - word
 - sentence
 
 ```js
-<SplitTextRevel text="Hello World" splitType="word" />
+<SplitTextReveal text="Hello World" splitType="word" />
 ```
 
 You can also configure the reveal animation by specifying:
@@ -77,7 +77,7 @@ You can also configure the reveal animation by specifying:
 "use client";
 
 import { useMemo } from "react";
-import { SplitTextRevel } from "@matteodicristofalo/text-animations";
+import { SplitTextReveal } from "@matteodicristofalo/text-animations";
 
 export function MyComponent() {
   const revealOptions = useMemo(
@@ -90,7 +90,7 @@ export function MyComponent() {
 
   return (
     <h1>
-      <SplitTextRevel text="Hello World" revealOptions={revealOptions} />
+      <SplitTextReveal text="Hello World" revealOptions={revealOptions} />
     </h1>
   );
 }
@@ -112,7 +112,7 @@ export function MyComponent() {
 }
 ```
 
-Also here you can configure the aniimation
+This component split always by char, the only thing you can configure is the rotate animation
 
 ```js
 "use client";
