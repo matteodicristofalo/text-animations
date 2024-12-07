@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { round } from "@utils/numbers";
+import { clamp, round } from "@utils/numbers";
 import { characters, sentences, words } from "@utils/text";
 import { useIntersectionObserver } from "@hooks";
 import { SplitTextRevealProps } from "./split-test-reveal.types";
@@ -10,17 +10,32 @@ import styles from "./split-text-reveal.module.scss";
 
 const DEFAULT_DURATION = 0.5;
 const DEFAULT_STAGGER = 0.01;
+const MIN_THRESHOLD = 0;
+const MAX_THRESHOLD = 1;
+const DEFAULT_THRESHOLD = 0.25;
 
 export function SplitTextReveal({
   text,
   splitType = "char",
   revealOptions,
 }: SplitTextRevealProps) {
+  const ref = useRef(null);
+
   const [hasBeenMounted, setHasBeenMounted] = useState(false);
 
-  const ref = useRef(null);
-  const memoizedOptions = useMemo(() => ({ once: true, threshold: 0.1 }), []);
+  const memoizedOptions = useMemo(() => {
+    const once = revealOptions?.once ?? true;
+    const threshold = revealOptions?.threshold
+      ? clamp(revealOptions.threshold, MIN_THRESHOLD, MAX_THRESHOLD)
+      : DEFAULT_THRESHOLD;
+    return {
+      once,
+      threshold,
+    };
+  }, [revealOptions]);
+
   const isInView = useIntersectionObserver(ref, memoizedOptions);
+
   const transitionDuration = revealOptions?.duration || DEFAULT_DURATION;
   const transitionStagger = revealOptions?.stagger || DEFAULT_STAGGER;
 

@@ -70,8 +70,10 @@ You can decide how to split the text between one of this options:
 
 You can also configure the reveal animation by specifying:
 
-- duration
-- stagger
+- duration (number in seconds)
+- stagger (number in seconds)
+- threshold (number between 0 and 1)
+- once (boolean)
 
 ```js
 "use client";
@@ -84,6 +86,8 @@ export function MyComponent() {
     () => ({
       duration: 1,
       stagger: 0.5,
+      threshold: 0.75,
+      once: false,
     }),
     []
   );

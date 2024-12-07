@@ -9,4 +9,6 @@ type SplitType = "sentence" | "word" | "char";
 type RevealOptions = {
   duration: number;
   stagger: number;
+  threshold: number;
+  once: boolean;
 };
