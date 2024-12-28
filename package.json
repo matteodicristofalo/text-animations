@@ -1,6 +1,6 @@
 {
   "name": "@matteodicristofalo/text-animations",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "React library to animate text",
   "scripts": {
     "build": "rimraf dist && rollup -c",
