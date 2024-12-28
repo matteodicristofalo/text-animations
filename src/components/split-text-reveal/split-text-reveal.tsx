@@ -65,19 +65,24 @@ export function SplitTextReveal({
       }
     >
       {hasBeenMounted ? (
-        splittedText.map((el, i) => (
-          <span key={i} className={styles["container"]}>
-            <span
-              style={
-                {
-                  "--var-delay": `${round(transitionStagger * i, 3)}s`,
-                } as React.CSSProperties
-              }
-            >
-              {el}
+        <>
+          <span className={styles["sr-only"]}>{text}</span>
+
+          {splittedText.map((el, i) => (
+            <span key={i} className={styles["container"]} aria-hidden="true">
+              <span
+                aria-hidden="true"
+                style={
+                  {
+                    "--var-delay": `${round(transitionStagger * i, 3)}s`,
+                  } as React.CSSProperties
+                }
+              >
+                {el}
+              </span>
             </span>
-          </span>
-        ))
+          ))}
+        </>
       ) : (
         <span className={styles["is-hidden"]}>{text}</span>
       )}

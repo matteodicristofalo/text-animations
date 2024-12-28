@@ -5,6 +5,13 @@
     opacity: 0;
   }
 
+  .sr-only {
+    height: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 0;
+  }
+
   .container {
     display: inline-flex;
     overflow: hidden;

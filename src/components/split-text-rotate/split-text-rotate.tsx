@@ -47,27 +47,32 @@ export function SplitTextRotate({ text, rotateOptions }: SplitTextRotateProps) {
       }
     >
       {hasBeenMounted ? (
-        Array.from({ length: 2 }).map((_, i) => (
-          <span key={i} className={styles["container"]}>
-            {splittedText.map((char, i) => {
-              const charDelays = delays(i);
-              return (
-                <span
-                  key={i}
-                  className={styles["char"]}
-                  style={
-                    {
-                      "--var-delay-in": `${charDelays.in}s`,
-                      "--var-delay-out": `${charDelays.out}s`,
-                    } as React.CSSProperties
-                  }
-                >
-                  {char}
-                </span>
-              );
-            })}
-          </span>
-        ))
+        <>
+          <span className={styles["sr-only"]}>{text}</span>
+
+          {Array.from({ length: 2 }).map((_, i) => (
+            <span key={i} className={styles["container"]} aria-hidden="true">
+              {splittedText.map((char, i) => {
+                const charDelays = delays(i);
+                return (
+                  <span
+                    key={i}
+                    className={styles["char"]}
+                    aria-hidden="true"
+                    style={
+                      {
+                        "--var-delay-in": `${charDelays.in}s`,
+                        "--var-delay-out": `${charDelays.out}s`,
+                      } as React.CSSProperties
+                    }
+                  >
+                    {char}
+                  </span>
+                );
+              })}
+            </span>
+          ))}
+        </>
       ) : (
         <span>{text}</span>
       )}
