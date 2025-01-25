@@ -57,6 +57,14 @@ export const Duration: Story = {
   },
 };
 
+export const Delay: Story = {
+  args: {
+    revealOptions: {
+      delay: 1,
+    },
+  },
+};
+
 export const Stagger: Story = {
   args: {
     revealOptions: {

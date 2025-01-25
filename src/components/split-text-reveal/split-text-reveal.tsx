@@ -74,7 +74,8 @@ export function SplitTextReveal({
                 aria-hidden="true"
                 style={
                   {
-                    "--var-delay": `${round(transitionStagger * i, 3)}s`,
+                    "--var-delay": `${revealOptions?.delay ?? 0}s`,
+                    "--var-stagger": `${round(transitionStagger * i, 3)}s`,
                   } as React.CSSProperties
                 }
               >

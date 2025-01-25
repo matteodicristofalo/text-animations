@@ -19,7 +19,7 @@
     span {
       min-width: 0.25em;
       transform: translateY(100%);
-      transition-delay: var(--var-delay);
+      transition-delay: calc(var(--var-delay) + var(--var-stagger));
       transition-duration: var(--var-duration);
       transition-property: transform;
       transition-timing-function: ease-out;
