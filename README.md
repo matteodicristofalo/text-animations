@@ -42,18 +42,21 @@ export default function RootLayout({
 
 Once imported the CSS you can use the React components.
 
-## SplitTextReveal
+## textReveal
 
 ```js
 "use client";
 
-import { SplitTextReveal } from "@matteodicristofalo/text-animations";
+import { textReveal } from "@matteodicristofalo/text-animations";
 
 export function MyComponent() {
   return (
-    <h1>
-      <SplitTextReveal text="Hello World" />
-    </h1>
+    <>
+      <textReveal.h1 text="Hello World" />
+      <textReveal.h2 text="Hello World" />
+      <textReveal.p text="Hello World" />
+      <textReveal.span text="Hello World" />
+    </>
   );
 }
 ```
@@ -65,7 +68,7 @@ You can decide how to split the text between one of this options:
 - sentence
 
 ```js
-<SplitTextReveal text="Hello World" splitType="word" />
+<textReveal.h1 text="Hello World" splitType="word" />
 ```
 
 You can also configure the reveal animation by specifying:
@@ -79,10 +82,10 @@ You can also configure the reveal animation by specifying:
 "use client";
 
 import { useMemo } from "react";
-import { SplitTextReveal } from "@matteodicristofalo/text-animations";
+import { textReveal } from "@matteodicristofalo/text-animations";
 
 export function MyComponent() {
-  const revealOptions = useMemo(
+  const animation = useMemo(
     () => ({
       duration: 1,
       stagger: 0.5,
@@ -92,26 +95,25 @@ export function MyComponent() {
     []
   );
 
-  return (
-    <h1>
-      <SplitTextReveal text="Hello World" revealOptions={revealOptions} />
-    </h1>
-  );
+  return <textReveal.h1 text="Hello World" animation={animation} />;
 }
 ```
 
-## SplitTextRotate
+## textRotate
 
 ```js
 "use client";
 
-import { SplitTextRotate } from "@matteodicristofalo/text-animations";
+import { textRotate } from "@matteodicristofalo/text-animations";
 
 export function MyComponent() {
   return (
-    <h1>
-      <SplitTextRotate text="Hello World" />
-    </h1>
+    <>
+      <textRotate.h1 text="Hello World" />
+      <textRotate.h1 text="Hello World" />
+      <textRotate.p text="Hello World" />
+      <textRotate.span text="Hello World" />
+    </>
   );
 }
 ```
@@ -122,10 +124,10 @@ This component split always by char, the only thing you can configure is the rot
 "use client";
 
 import { useMemo } from "react";
-import { SplitTextRotate } from "@matteodicristofalo/text-animations";
+import { textRotate } from "@matteodicristofalo/text-animations";
 
 export function MyComponent() {
-  const rotateOptions = useMemo(
+  const animation = useMemo(
     () => ({
       duration: 1,
       stagger: 0.5,
@@ -133,10 +135,6 @@ export function MyComponent() {
     []
   );
 
-  return (
-    <h1>
-      <SplitTextRotate text="Hello World" rotateOptions={rotateOptions} />
-    </h1>
-  );
+  return <textRotate.h1 text="Hello World" animation={animation} />;
 }
 ```

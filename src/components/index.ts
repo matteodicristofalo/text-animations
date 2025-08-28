@@ -1,2 +1,2 @@
-export { SplitTextReveal } from "./split-text-reveal/split-text-reveal";
-export { SplitTextRotate } from "./split-text-rotate/split-text-rotate";
+export * from "./text-reveal/text-reveal";
+export * from "./text-rotate/text-rotate";

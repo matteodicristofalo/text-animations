@@ -4,9 +4,9 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { clamp, round } from "@utils/numbers";
 import { characters, sentences, words } from "@utils/text";
 import { useIntersectionObserver } from "@hooks";
-import { SplitTextRevealProps } from "./split-test-reveal.types";
+import { generateJsxVariations } from "@utils/jsx";
 import clsx from "clsx";
-import styles from "./split-text-reveal.module.scss";
+import styles from "./text-reveal.module.scss";
 
 const DEFAULT_DURATION = 0.5;
 const DEFAULT_STAGGER = 0.01;
@@ -14,30 +14,42 @@ const MIN_THRESHOLD = 0;
 const MAX_THRESHOLD = 1;
 const DEFAULT_THRESHOLD = 0.25;
 
-export function SplitTextReveal({
+function TextReveal({
   text,
   splitType = "char",
-  revealOptions,
-}: SplitTextRevealProps) {
+  animation,
+}: {
+  text: string;
+  splitType?: "sentence" | "word" | "char";
+  animation?: Partial<{
+    duration: number;
+    delay: number;
+    stagger: number;
+    threshold: number;
+    once: boolean;
+  }>;
+}) {
   const ref = useRef(null);
 
   const [hasBeenMounted, setHasBeenMounted] = useState(false);
 
-  const memoizedOptions = useMemo(() => {
-    const once = revealOptions?.once ?? true;
-    const threshold = revealOptions?.threshold
-      ? clamp(revealOptions.threshold, MIN_THRESHOLD, MAX_THRESHOLD)
+  const intersectionObserverOptions = useMemo(() => {
+    const once = animation?.once ?? true;
+
+    const threshold = animation?.threshold
+      ? clamp(animation.threshold, MIN_THRESHOLD, MAX_THRESHOLD)
       : DEFAULT_THRESHOLD;
+
     return {
       once,
       threshold,
     };
-  }, [revealOptions]);
+  }, [animation]);
 
-  const isInView = useIntersectionObserver(ref, memoizedOptions);
+  const isInView = useIntersectionObserver(ref, intersectionObserverOptions);
 
-  const transitionDuration = revealOptions?.duration || DEFAULT_DURATION;
-  const transitionStagger = revealOptions?.stagger || DEFAULT_STAGGER;
+  const duration = animation?.duration || DEFAULT_DURATION;
+  const stagger = animation?.stagger || DEFAULT_STAGGER;
 
   const splittedText = useMemo(() => {
     switch (splitType) {
@@ -60,7 +72,7 @@ export function SplitTextReveal({
       className={clsx(styles["text"], { [styles["animate"]]: isInView })}
       style={
         {
-          "--var-duration": `${transitionDuration}s`,
+          "--var-duration": `${duration}s`,
         } as React.CSSProperties
       }
     >
@@ -74,8 +86,8 @@ export function SplitTextReveal({
                 aria-hidden="true"
                 style={
                   {
-                    "--var-delay": `${revealOptions?.delay ?? 0}s`,
-                    "--var-stagger": `${round(transitionStagger * i, 3)}s`,
+                    "--var-delay": `${animation?.delay ?? 0}s`,
+                    "--var-stagger": `${round(stagger * i, 3)}s`,
                   } as React.CSSProperties
                 }
               >
@@ -90,3 +102,7 @@ export function SplitTextReveal({
     </span>
   );
 }
+
+const textReveal = generateJsxVariations(TextReveal);
+
+export { textReveal };

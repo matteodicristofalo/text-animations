@@ -1,15 +1,14 @@
-import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { SplitTextRotate } from "./split-text-rotate";
+import { textRotate } from "./text-rotate";
 
 const meta = {
-  title: "SplitTextRotate",
-  component: SplitTextRotate,
+  title: "textRotate",
+  component: textRotate.h1,
   argTypes: {
     text: {
       control: "text",
     },
-    rotateOptions: {
+    animation: {
       control: {
         type: "object",
       },
@@ -18,14 +17,7 @@ const meta = {
   args: {
     text: "Rotating text",
   },
-  render: (args) => {
-    return (
-      <h3>
-        <SplitTextRotate {...args} />
-      </h3>
-    );
-  },
-} satisfies Meta<typeof SplitTextRotate>;
+} satisfies Meta<typeof textRotate.h1>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -34,7 +26,7 @@ export const Default: Story = {};
 
 export const Duration: Story = {
   args: {
-    rotateOptions: {
+    animation: {
       duration: 1,
     },
   },
@@ -42,7 +34,7 @@ export const Duration: Story = {
 
 export const Stagger: Story = {
   args: {
-    rotateOptions: {
+    animation: {
       stagger: 0.05,
     },
   },

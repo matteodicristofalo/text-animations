@@ -1,10 +1,10 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { SplitTextReveal } from "./split-text-reveal";
+import { textReveal } from "./text-reveal";
 
 const meta = {
-  title: "SplitTextReveal",
-  component: SplitTextReveal,
+  title: "textReveal",
+  component: textReveal.h1,
   argTypes: {
     text: {
       control: "text",
@@ -13,7 +13,7 @@ const meta = {
       control: "radio",
       options: ["char", "word", "sentence"],
     },
-    revealOptions: {
+    animation: {
       control: {
         type: "object",
       },
@@ -23,14 +23,7 @@ const meta = {
     text: "Here is the revealed text",
     splitType: "char",
   },
-  render: (args) => {
-    return (
-      <h1>
-        <SplitTextReveal {...args} />
-      </h1>
-    );
-  },
-} satisfies Meta<typeof SplitTextReveal>;
+} satisfies Meta<typeof textReveal.h1>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -51,7 +44,7 @@ export const SplitBySentence: Story = {
 
 export const Duration: Story = {
   args: {
-    revealOptions: {
+    animation: {
       duration: 1,
     },
   },
@@ -59,7 +52,7 @@ export const Duration: Story = {
 
 export const Delay: Story = {
   args: {
-    revealOptions: {
+    animation: {
       delay: 1,
     },
   },
@@ -67,7 +60,7 @@ export const Delay: Story = {
 
 export const Stagger: Story = {
   args: {
-    revealOptions: {
+    animation: {
       stagger: 0.05,
     },
   },
@@ -75,7 +68,7 @@ export const Stagger: Story = {
 
 export const Threshold: Story = {
   args: {
-    revealOptions: {
+    animation: {
       threshold: 0.75,
     },
   },
@@ -84,17 +77,15 @@ export const Threshold: Story = {
       <>
         <div style={{ marginBottom: "100vh" }}>Scroll to reveal the text</div>
 
-        <h1 style={{ background: "lightcoral" }}>
-          <SplitTextReveal {...args} />
-        </h1>
+        <textReveal.h1 {...args} />
       </>
     );
   },
 };
 
-export const NotOnce: Story = {
+export const MultipleTimes: Story = {
   args: {
-    revealOptions: {
+    animation: {
       once: false,
     },
   },
@@ -103,9 +94,7 @@ export const NotOnce: Story = {
       <>
         <div style={{ marginBottom: "100vh" }}>Scroll to reveal the text</div>
 
-        <h1 style={{ background: "lightcoral" }}>
-          <SplitTextReveal {...args} />
-        </h1>
+        <textReveal.h1 {...args} />
       </>
     );
   },

@@ -3,34 +3,43 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { round } from "@utils/numbers";
 import { characters } from "@utils/text";
-import { SplitTextRotateProps } from "./split-text-rotate.types";
-import styles from "./split-text-rotate.module.scss";
+import { generateJsxVariations } from "@utils/jsx";
+import styles from "./text-rotate.module.scss";
 
 const DEFAULT_DURATION = 0.25;
 const DEFAULT_STAGGER = 0.025;
 
-export function SplitTextRotate({ text, rotateOptions }: SplitTextRotateProps) {
+function TextRotate({
+  text,
+  animation,
+}: {
+  text: string;
+  animation?: Partial<{
+    duration: number;
+    stagger: number;
+  }>;
+}) {
   const [hasBeenMounted, setHasBeenMounted] = useState(false);
 
   const splittedText = useMemo(() => characters(text), [text]);
 
-  const { transitionDuration, transitionStagger } = useMemo(
+  const { duration, stagger } = useMemo(
     () => ({
-      transitionDuration: rotateOptions?.duration || DEFAULT_DURATION,
-      transitionStagger: rotateOptions?.stagger || DEFAULT_STAGGER,
+      duration: animation?.duration || DEFAULT_DURATION,
+      stagger: animation?.stagger || DEFAULT_STAGGER,
     }),
-    [rotateOptions]
+    [animation]
   );
 
   const delays = useCallback(
     (index: number) => {
       const noElementsZeroBased = splittedText.length - 1;
       return {
-        in: round(transitionStagger * index, 3),
-        out: round(transitionStagger * (noElementsZeroBased - index), 3),
+        in: round(stagger * index, 3),
+        out: round(stagger * (noElementsZeroBased - index), 3),
       };
     },
-    [splittedText, transitionStagger]
+    [splittedText, stagger]
   );
 
   useEffect(() => {
@@ -42,7 +51,7 @@ export function SplitTextRotate({ text, rotateOptions }: SplitTextRotateProps) {
       className={styles["text"]}
       style={
         {
-          "--var-duration": `${transitionDuration}s`,
+          "--var-duration": `${duration}s`,
         } as React.CSSProperties
       }
     >
@@ -79,3 +88,7 @@ export function SplitTextRotate({ text, rotateOptions }: SplitTextRotateProps) {
     </span>
   );
 }
+
+const textRotate = generateJsxVariations(TextRotate);
+
+export { textRotate };
