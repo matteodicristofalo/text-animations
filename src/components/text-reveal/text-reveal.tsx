@@ -4,7 +4,8 @@ import React, { useMemo, useRef } from "react";
 import { clamp, round } from "@utils/numbers";
 import { characters, sentences, words } from "@utils/text";
 import { useIntersectionObserver, useIsHydrated } from "@hooks";
-import { generateJsxVariations, HtmlTextElementTag } from "@utils/jsx";
+import { generateJsxVariations } from "@utils/jsx";
+import { WithTag } from "@utils/types";
 import clsx from "clsx";
 import styles from "./text-reveal.module.scss";
 
@@ -14,13 +15,7 @@ const MIN_THRESHOLD = 0;
 const MAX_THRESHOLD = 1;
 const DEFAULT_THRESHOLD = 0.25;
 
-function TextReveal({
-  tag: Tag,
-  text,
-  splitType = "char",
-  animation,
-}: {
-  tag: HtmlTextElementTag;
+type TextRevealProps = WithTag<{
   text: string;
   splitType?: "sentence" | "word" | "char";
   animation?: Partial<{
@@ -30,10 +25,29 @@ function TextReveal({
     threshold: number;
     once: boolean;
   }>;
-}) {
-  const ref = useRef(null);
+}>;
 
+function TextReveal(props: TextRevealProps) {
   const isHydrated = useIsHydrated();
+
+  if (isHydrated === false) {
+    return <TextRevealServer {...props} />;
+  }
+
+  return <TextRevealClient {...props} />;
+}
+
+function TextRevealServer({ tag: Tag, text }: TextRevealProps) {
+  return <Tag style={{ opacity: 0 }}>{text}</Tag>;
+}
+
+function TextRevealClient({
+  tag: Tag,
+  text,
+  splitType = "char",
+  animation,
+}: TextRevealProps) {
+  const ref = useRef(null);
 
   const intersectionObserverOptions = useMemo(() => {
     const once = animation?.once ?? true;
@@ -75,27 +89,21 @@ function TextReveal({
       }
       aria-label={text}
     >
-      {isHydrated ? (
-        <>
-          {splittedText.map((el, i) => (
-            <span key={i} className={styles["container"]} aria-hidden="true">
-              <span
-                aria-hidden="true"
-                style={
-                  {
-                    "--var-delay": `${animation?.delay ?? 0}s`,
-                    "--var-stagger": `${round(stagger * i, 3)}s`,
-                  } as React.CSSProperties
-                }
-              >
-                {el}
-              </span>
-            </span>
-          ))}
-        </>
-      ) : (
-        <span className={styles["is-hidden"]}>{text}</span>
-      )}
+      {splittedText.map((el, i) => (
+        <span key={i} className={styles["container"]} aria-hidden="true">
+          <span
+            aria-hidden="true"
+            style={
+              {
+                "--var-delay": `${animation?.delay ?? 0}s`,
+                "--var-stagger": `${round(stagger * i, 3)}s`,
+              } as React.CSSProperties
+            }
+          >
+            {el}
+          </span>
+        </span>
+      ))}
     </Tag>
   );
 }
