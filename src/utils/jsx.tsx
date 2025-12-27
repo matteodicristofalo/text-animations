@@ -1,4 +1,5 @@
 import React from "react";
+import { WithoutTag } from "./types";
 
 const htmlTextElementTags = [
   "h1",
@@ -11,17 +12,19 @@ const htmlTextElementTags = [
   "span",
 ] as const;
 
-type HtmlTextElementTag = (typeof htmlTextElementTags)[number];
+export type HtmlTextElementTag = (typeof htmlTextElementTags)[number];
 
-export function generateJsxVariations<Props extends { text: string }>(
-  component: React.FC<Props>
+export function generateJsxVariations<
+  Props extends { tag: HtmlTextElementTag }
+>(
+  Component: React.FC<Props>
 ): {
-  [k in HtmlTextElementTag]: React.FC<Props>;
+  [k in HtmlTextElementTag]: React.FC<WithoutTag<Props>>;
 } {
-  return htmlTextElementTags.reduce((variations, Tag) => {
-    variations[Tag] = (props: Props) => (
-      <Tag aria-label={props.text}>{component(props)}</Tag>
+  return htmlTextElementTags.reduce((variations, tag) => {
+    variations[tag] = (props: WithoutTag<Props>) => (
+      <Component {...(props as Props)} tag={tag} />
     );
     return variations;
-  }, {} as { [k in HtmlTextElementTag]: React.FC<Props> });
+  }, {} as { [k in HtmlTextElementTag]: React.FC<WithoutTag<Props>> });
 }

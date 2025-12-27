@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { clamp, round } from "@utils/numbers";
 import { characters, sentences, words } from "@utils/text";
 import { useIntersectionObserver } from "@hooks";
-import { generateJsxVariations } from "@utils/jsx";
+import { generateJsxVariations, HtmlTextElementTag } from "@utils/jsx";
 import clsx from "clsx";
 import styles from "./text-reveal.module.scss";
 
@@ -15,10 +15,12 @@ const MAX_THRESHOLD = 1;
 const DEFAULT_THRESHOLD = 0.25;
 
 function TextReveal({
+  tag: Tag,
   text,
   splitType = "char",
   animation,
 }: {
+  tag: HtmlTextElementTag;
   text: string;
   splitType?: "sentence" | "word" | "char";
   animation?: Partial<{
@@ -67,7 +69,7 @@ function TextReveal({
   }, []);
 
   return (
-    <span
+    <Tag
       ref={ref}
       className={clsx(styles["text"], { [styles["animate"]]: isInView })}
       style={
@@ -75,6 +77,7 @@ function TextReveal({
           "--var-duration": `${duration}s`,
         } as React.CSSProperties
       }
+      aria-label={text}
     >
       {hasBeenMounted ? (
         <>
@@ -97,7 +100,7 @@ function TextReveal({
       ) : (
         <span className={styles["is-hidden"]}>{text}</span>
       )}
-    </span>
+    </Tag>
   );
 }
 

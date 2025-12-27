@@ -3,16 +3,18 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { round } from "@utils/numbers";
 import { characters } from "@utils/text";
-import { generateJsxVariations } from "@utils/jsx";
+import { generateJsxVariations, HtmlTextElementTag } from "@utils/jsx";
 import styles from "./text-rotate.module.scss";
 
 const DEFAULT_DURATION = 0.25;
 const DEFAULT_STAGGER = 0.025;
 
 function TextRotate({
+  tag: Tag,
   text,
   animation,
 }: {
+  tag: HtmlTextElementTag;
   text: string;
   animation?: Partial<{
     duration: number;
@@ -47,13 +49,14 @@ function TextRotate({
   }, []);
 
   return (
-    <span
+    <Tag
       className={styles["text"]}
       style={
         {
           "--var-duration": `${duration}s`,
         } as React.CSSProperties
       }
+      aria-label={text}
     >
       {hasBeenMounted ? (
         <>
@@ -83,7 +86,7 @@ function TextRotate({
       ) : (
         <span>{text}</span>
       )}
-    </span>
+    </Tag>
   );
 }
 
