@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef } from "react";
 import { clamp, round } from "@utils/numbers";
 import { characters, sentences, words } from "@utils/text";
-import { useIntersectionObserver } from "@hooks";
+import { useIntersectionObserver, useIsHydrated } from "@hooks";
 import { generateJsxVariations, HtmlTextElementTag } from "@utils/jsx";
 import clsx from "clsx";
 import styles from "./text-reveal.module.scss";
@@ -33,7 +33,7 @@ function TextReveal({
 }) {
   const ref = useRef(null);
 
-  const [hasBeenMounted, setHasBeenMounted] = useState(false);
+  const isHydrated = useIsHydrated();
 
   const intersectionObserverOptions = useMemo(() => {
     const once = animation?.once ?? true;
@@ -64,10 +64,6 @@ function TextReveal({
     }
   }, [splitType, text]);
 
-  useEffect(() => {
-    setHasBeenMounted(true);
-  }, []);
-
   return (
     <Tag
       ref={ref}
@@ -79,7 +75,7 @@ function TextReveal({
       }
       aria-label={text}
     >
-      {hasBeenMounted ? (
+      {isHydrated ? (
         <>
           {splittedText.map((el, i) => (
             <span key={i} className={styles["container"]} aria-hidden="true">

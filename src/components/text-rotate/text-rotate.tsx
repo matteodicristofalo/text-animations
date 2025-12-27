@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useMemo } from "react";
 import { round } from "@utils/numbers";
 import { characters } from "@utils/text";
 import { generateJsxVariations, HtmlTextElementTag } from "@utils/jsx";
+import { useIsHydrated } from "@hooks";
 import styles from "./text-rotate.module.scss";
 
 const DEFAULT_DURATION = 0.25;
@@ -21,7 +22,7 @@ function TextRotate({
     stagger: number;
   }>;
 }) {
-  const [hasBeenMounted, setHasBeenMounted] = useState(false);
+  const isHydrated = useIsHydrated();
 
   const splittedText = useMemo(() => characters(text), [text]);
 
@@ -44,10 +45,6 @@ function TextRotate({
     [splittedText, stagger]
   );
 
-  useEffect(() => {
-    setHasBeenMounted(true);
-  }, []);
-
   return (
     <Tag
       className={styles["text"]}
@@ -58,7 +55,7 @@ function TextRotate({
       }
       aria-label={text}
     >
-      {hasBeenMounted ? (
+      {isHydrated ? (
         <>
           {Array.from({ length: 2 }).map((_, i) => (
             <span key={i} className={styles["container"]} aria-hidden="true">
