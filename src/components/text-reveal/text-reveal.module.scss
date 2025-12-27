@@ -5,24 +5,18 @@
     opacity: 0;
   }
 
-  .sr-only {
-    height: 0;
-    overflow: hidden;
-    position: absolute;
-    width: 0;
-  }
-
   .container {
-    display: inline-flex;
+    display: inline-block;
     overflow: hidden;
 
     span {
-      min-width: 0.25em;
+      display: inline-block;
       transform: translateY(100%);
       transition-delay: calc(var(--var-delay) + var(--var-stagger));
       transition-duration: var(--var-duration);
       transition-property: transform;
       transition-timing-function: ease-out;
+      white-space: pre;
       will-change: transform;
     }
   }

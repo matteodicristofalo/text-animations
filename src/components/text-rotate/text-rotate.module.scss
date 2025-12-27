@@ -3,15 +3,8 @@
   overflow: hidden;
   position: relative;
 
-  .sr-only {
-    height: 0;
-    overflow: hidden;
-    position: absolute;
-    width: 0;
-  }
-
   .container {
-    display: flex;
+    display: block;
 
     &:nth-of-type(2) {
       position: absolute;
@@ -21,11 +14,11 @@
 
     .char {
       display: inline-block;
-      min-width: 0.25em;
       transition-delay: var(--var-delay-out);
       transition-duration: var(--var-duration);
       transition-property: transform;
       transition-timing-function: ease-out;
+      white-space: pre;
       will-change: transform;
     }
   }

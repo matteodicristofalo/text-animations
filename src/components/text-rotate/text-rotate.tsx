@@ -57,8 +57,6 @@ function TextRotate({
     >
       {hasBeenMounted ? (
         <>
-          <span className={styles["sr-only"]}>{text}</span>
-
           {Array.from({ length: 2 }).map((_, i) => (
             <span key={i} className={styles["container"]} aria-hidden="true">
               {splittedText.map((char, i) => {

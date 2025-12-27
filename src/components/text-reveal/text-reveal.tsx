@@ -78,8 +78,6 @@ function TextReveal({
     >
       {hasBeenMounted ? (
         <>
-          <span className={styles["sr-only"]}>{text}</span>
-
           {splittedText.map((el, i) => (
             <span key={i} className={styles["container"]} aria-hidden="true">
               <span
