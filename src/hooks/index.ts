@@ -1,1 +1,1 @@
-export { useIntersectionObserver } from "./intersection-overser/intersection-observer";
+export { useIntersectionObserver } from "./use-intersection-observer";
