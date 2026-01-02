@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useMemo, useRef } from "react";
 import { clamp, round } from "@utils/numbers";
 import { characters, sentences, words } from "@utils/text";

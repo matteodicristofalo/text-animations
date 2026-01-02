@@ -61,6 +61,8 @@ export function MyComponent() {
 }
 ```
 
+If you're using **Next.JS** make sure the component importing `<textReveal>` is marked as **Client Component** via the `"use client"` directive otherwise it won't compile.
+
 You can decide how to split the text between one of this options:
 
 - char (default)
@@ -117,6 +119,8 @@ export function MyComponent() {
   );
 }
 ```
+
+As well as `<textReveal>`, If you're using **Next.JS** make sure the component importing `<textRotate>` is marked as **Client Component** via the `"use client"`.
 
 This component split always by char, the only thing you can configure is the rotate animation
 

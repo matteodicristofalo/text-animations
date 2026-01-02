@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useCallback, useMemo } from "react";
 import { round } from "@utils/numbers";
 import { characters } from "@utils/text";
