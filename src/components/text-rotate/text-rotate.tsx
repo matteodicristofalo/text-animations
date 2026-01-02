@@ -6,6 +6,7 @@ import { WithTag } from "@utils/types";
 import { useIsHydrated } from "@hooks";
 import styles from "./text-rotate.module.scss";
 
+const NUMBER_OF_COPIES = 2;
 const DEFAULT_DURATION = 0.25;
 const DEFAULT_STAGGER = 0.025;
 
@@ -32,22 +33,18 @@ function TextRotateServer({ tag: Tag, text }: TextRotateProps) {
 }
 
 function TextRotateClient({ tag: Tag, text, animation }: TextRotateProps) {
-  const chars = useMemo(() => characters(text), [text]);
+  const duration = animation?.duration || DEFAULT_DURATION;
+  const stagger = animation?.stagger || DEFAULT_STAGGER;
 
-  const { duration, stagger } = useMemo(
-    () => ({
-      duration: animation?.duration || DEFAULT_DURATION,
-      stagger: animation?.stagger || DEFAULT_STAGGER,
-    }),
-    [animation]
-  );
+  const chars = useMemo(() => characters(text), [text]);
 
   const delays = useCallback(
     (index: number) => {
+      const precision = 3;
       const noElementsZeroBased = chars.length - 1;
       return {
-        in: round(stagger * index, 3),
-        out: round(stagger * (noElementsZeroBased - index), 3),
+        in: round(stagger * index, precision),
+        out: round(stagger * (noElementsZeroBased - index), precision),
       };
     },
     [chars, stagger]
@@ -63,7 +60,7 @@ function TextRotateClient({ tag: Tag, text, animation }: TextRotateProps) {
       }
       aria-label={text}
     >
-      {Array.from({ length: 2 }).map((_, i) => (
+      {Array.from({ length: NUMBER_OF_COPIES }).map((_, i) => (
         <span key={i} className={styles["container"]} aria-hidden="true">
           {chars.map((char, i) => {
             const charDelays = delays(i);
