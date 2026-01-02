@@ -1,7 +1,7 @@
 {
   "name": "@matteodicristofalo/text-animations",
   "version": "2.0.1",
-  "description": "React library to animate text",
+  "description": "Lightweight React component library to animate text",
   "scripts": {
     "build": "rimraf dist && rollup -c",
     "storybook": "storybook dev -p 6006"
@@ -52,5 +52,19 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:matteodicristofalo/text-animations.git"
-  }
+  },
+  "keywords": [
+    "react",
+    "react-components",
+    "ui-library",
+    "animation",
+    "animated-text",
+    "text-animation",
+    "text-reveal",
+    "hover",
+    "hover-effects",
+    "scroll-animation",
+    "typography",
+    "microinteractions"
+  ]
 }
