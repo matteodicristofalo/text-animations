@@ -5,6 +5,8 @@
     "jsx": "react",
     "lib": ["esnext", "dom"],
     "outDir": "dist",
+    "module": "es2015",
+    "moduleResolution": "bundler",
     "paths": {
       "@hooks": ["./src/hooks/index"],
       "@utils/*": ["./src/utils/*"]
