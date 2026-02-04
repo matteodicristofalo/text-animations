@@ -1,0 +1,23 @@
+.text {
+  position: relative;
+}
+
+.text .container {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.text .container span {
+  display: inline-block;
+  transform: translateY(100%);
+  transition-delay: calc(var(--var-delay) + var(--var-stagger));
+  transition-duration: var(--var-duration);
+  transition-property: transform;
+  transition-timing-function: ease-out;
+  white-space: pre;
+  will-change: transform;
+}
+
+.text.animate .container span {
+  transform: translateY(0);
+}

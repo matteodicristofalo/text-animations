@@ -4,7 +4,7 @@ import { characters } from "@utils/text";
 import { generateJsxVariations } from "@utils/jsx";
 import { WithTag } from "@utils/types";
 import { useIsHydrated } from "@hooks";
-import styles from "./text-rotate.module.scss";
+import styles from "./text-rotate.module.css";
 
 const NUMBER_OF_COPIES = 2;
 const DEFAULT_DURATION = 0.25;
@@ -47,7 +47,7 @@ function TextRotateClient({ tag: Tag, text, animation }: TextRotateProps) {
         out: round(stagger * (noElementsZeroBased - index), precision),
       };
     },
-    [chars, stagger]
+    [chars, stagger],
   );
 
   return (

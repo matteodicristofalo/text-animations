@@ -11,5 +11,7 @@
       "@hooks": ["./src/hooks/index"],
       "@utils/*": ["./src/utils/*"]
     }
-  }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.stories.tsx"]
 }

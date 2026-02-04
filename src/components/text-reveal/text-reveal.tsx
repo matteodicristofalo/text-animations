@@ -5,7 +5,7 @@ import { useIntersectionObserver, useIsHydrated } from "@hooks";
 import { generateJsxVariations } from "@utils/jsx";
 import { WithTag } from "@utils/types";
 import clsx from "clsx";
-import styles from "./text-reveal.module.scss";
+import styles from "./text-reveal.module.css";
 
 const DEFAULT_DURATION = 0.5;
 const DEFAULT_STAGGER = 0.01;
