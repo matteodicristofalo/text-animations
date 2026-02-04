@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState, RefObject } from "react";
 
 type Options = IntersectionObserverInit & {
@@ -8,7 +6,7 @@ type Options = IntersectionObserverInit & {
 
 export function useIntersectionObserver(
   ref: RefObject<HTMLElement>,
-  options?: Options
+  options?: Options,
 ): boolean {
   const [isIntersecting, setIntersecting] = useState(false);
 
@@ -29,7 +27,7 @@ export function useIntersectionObserver(
       {
         threshold: 0.75,
         ...options,
-      }
+      },
     );
 
     observer.observe(ref.current);
