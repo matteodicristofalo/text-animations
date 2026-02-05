@@ -1,6 +1,6 @@
 {
   "name": "@matteodicristofalo/text-animations",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Lightweight React component library to animate text",
   "scripts": {
     "lint": "eslint src",
