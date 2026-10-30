@@ -5,11 +5,14 @@
     "jsx": "react",
     "lib": ["esnext", "dom"],
     "outDir": "dist",
+    "rootDir": "src",
     "module": "es2015",
     "moduleResolution": "bundler",
     "paths": {
       "@hooks": ["./src/hooks/index"],
       "@utils/*": ["./src/utils/*"]
     }
-  }
+  },
+  "include": ["src"],
+  "exclude": ["**/*.stories.tsx"]
 }
